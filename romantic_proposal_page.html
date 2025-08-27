@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>Ek Chhota Sa Sawal 💖</title>
+  <style>
+    :root{--bg:#0f1724;--card:#0b1220;--accent:#ff5d8f;--muted:#9aa4b2}
+    html,body{height:100%;margin:0;font-family:Inter,ui-sans-serif,system-ui,Segoe UI,Roboto,'Helvetica Neue',Arial;overflow:hidden}
+    body{background:url('https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?auto=format&fit=crop&w=1950&q=80') no-repeat center center/cover, radial-gradient(ellipse at center,#101827 0%, #071023 60%);color:#e6eef6;display:flex;align-items:center;justify-content:center;}
+
+    .card{width:min(820px,95%);background:rgba(0,0,0,0.55);backdrop-filter:blur(8px);border-radius:18px;padding:28px;box-shadow:0 10px 30px rgba(3,7,18,0.6);position:relative;overflow:hidden;text-align:center;animation:fadeIn 1.5s ease}
+
+    h1{margin:0;font-size:24px;animation:fadeInDown 1s ease}
+    p.lead{color:var(--muted);margin:8px 0 18px;animation:fadeInDown 1.3s ease}
+
+    .message{background:rgba(255,255,255,0.05);border-radius:12px;padding:18px;min-height:160px;display:flex;align-items:center;justify-content:center;margin:20px auto;max-width:500px;animation:fadeIn 2s ease}
+    .typewriter{font-size:20px;line-height:1.5;max-width:48ch;text-align:center}
+
+    .photo img{width:180px;height:180px;border-radius:12px;object-fit:cover;box-shadow:0 6px 14px rgba(0,0,0,0.4);margin-bottom:14px;animation:zoomIn 1.5s ease}
+
+    .buttons{display:flex;gap:16px;justify-content:center;margin-bottom:10px;animation:fadeInUp 2.3s ease}
+    button{cursor:pointer;border:0;padding:14px 18px;border-radius:10px;font-weight:600;font-size:16px;transition:0.3s}
+    .yes{background:linear-gradient(90deg,#22c55e,#4ade80);color:white;box-shadow:0 6px 18px rgba(34,197,94,0.3)}
+    .yes:hover{transform:scale(1.08)}
+    .no{background:transparent;color:var(--muted);border:1px solid rgba(255,255,255,0.2);position:relative;}
+
+    .thankyou{display:none;flex-direction:column;align-items:center;justify-content:center;text-align:center;animation:fadeIn 1.2s ease}
+    .thankyou h2{font-size:26px;margin-bottom:10px;color:#4ade80}
+    .thankyou p{font-size:18px;color:#fff;max-width:400px}
+    .whatsapp-btn{margin-top:20px;background:#25D366;color:#fff;padding:12px 18px;border-radius:8px;text-decoration:none;font-weight:bold;display:inline-block;transition:0.3s}
+    .whatsapp-btn:hover{background:#1ebe5b;transform:scale(1.05)}
+
+    footer{margin-top:18px;color:var(--muted);font-size:13px;text-align:center;animation:fadeInUp 2.5s ease}
+
+    .confetti-canvas{position:absolute;inset:0;pointer-events:none;display:block}
+
+    .heart{position:absolute;width:14px;height:14px;background:var(--accent);transform:rotate(45deg);border-radius:3px;opacity:0.95}
+    .heart:before,.heart:after{content:'';position:absolute;background:var(--accent);width:14px;height:14px;border-radius:50%}
+    .heart:before{top:-7px;left:0}
+    .heart:after{left:-7px;top:0}
+
+    @keyframes fadeIn{from{opacity:0}to{opacity:1}}
+    @keyframes fadeInUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes fadeInDown{from{opacity:0;transform:translateY(-30px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes zoomIn{from{opacity:0;transform:scale(0.6)}to{opacity:1;transform:scale(1)}}
+
+    @media(max-width:600px){.typewriter{font-size:18px}.photo img{width:140px;height:140px}}
+  </style>
+</head>
+<body>
+  <audio autoplay loop>
+    <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mpeg">
+  </audio>
+
+  <div class="card" role="main" aria-labelledby="title">
+    <canvas class="confetti-canvas" id="confetti"></canvas>
+    <div class="proposal-screen">
+      <h1 id="title">Santoshi, tumse ek sawal hai... 💕</h1>
+      <p class="lead">Dil se soch ke answer dena ❤️</p>
+      <div class="photo">
+        <img src="https://i.ibb.co/YBmKWFq/santoshi.jpg" alt="Santoshi">
+      </div>
+      <div class="message">
+        <div class="typewriter" id="typewriter"></div>
+      </div>
+      <div class="buttons">
+        <button class="yes" id="btnYes">Haan 💚</button>
+        <button class="no" id="btnNo">Sochungi...</button>
+      </div>
+      <footer id="footer">Yeh page sirf tumhare liye banaya hai 💫</footer>
+    </div>
+
+    <div class="thankyou" id="thankyou">
+      <h2>Thank You! ❤️</h2>
+      <p>Tumne mujhe duniya ka sabse khush insaan bana diya! 🌸<br>Ab tumhari muskaan meri har subah ka sapna hogi.</p>
+      <a class="whatsapp-btn" id="whatsappLink" target="_blank">WhatsApp par baat karein 💬</a>
+    </div>
+  </div>
+
+  <script>
+    const message = [
+      "Tum meri zindagi ka sabse khoobsurat hissa ho.",
+      "Tumhari muskaan meri duniya roshan kar deti hai.",
+      "Main tumhare bina apni kahani soch bhi nahi sakta...",
+      "Kya tum meri zindagi ka hamesha ke liye hissa banogi? 💍"
+    ];
+
+    const el = document.getElementById('typewriter');
+    let part = 0, partIndex = 0, interval;
+
+    function startType() {
+      const text = message[part];
+      if (!interval) {
+        interval = setInterval(() => {
+          el.innerHTML = text.slice(0, ++partIndex);
+          if (partIndex === text.length) {
+            clearInterval(interval);
+            interval = null;
+            partIndex = 0;
+            part++;
+            if (part < message.length) setTimeout(startType, 1000);
+          }
+        }, 45);
+      }
+    }
+    startType();
+
+    const btnYes = document.getElementById('btnYes');
+    const btnNo = document.getElementById('btnNo');
+    const footer = document.getElementById('footer');
+    const proposalScreen = document.querySelector('.proposal-screen');
+    const thankYouScreen = document.getElementById('thankyou');
+    const whatsappLink = document.getElementById('whatsappLink');
+
+    btnYes.addEventListener('click', ()=>{
+      footer.textContent = '';
+      proposalScreen.style.display = 'none';
+      thankYouScreen.style.display = 'flex';
+      whatsappLink.href = `https://wa.me/918076891017?text=${encodeURIComponent('Tumne haan keh diya ❤️ Mujhe tumse baat karni hai!')}`;
+      launchConfetti();
+      heartRain();
+    });
+
+    btnNo.addEventListener('mouseover', ()=>{
+      const x = Math.random()*60 - 30;
+      const y = Math.random()*40 - 20;
+      btnNo.style.transform = `translate(${x}px, ${y}px)`;
+    });
+
+    btnNo.addEventListener('click', ()=>{
+      window.open('', '_blank').document.write('<h1 style="text-align:center;font-size:48px;">Man jaao 😘</h1>');
+      btnNo.style.position = 'absolute';
+      btnNo.style.animation = 'floatBtn 2s infinite alternate';
+    });
+
+    const style = document.createElement('style');
+    style.innerHTML = '@keyframes floatBtn { from { transform: translateY(0px); } to { transform: translateY(-20px); } }';
+    document.head.appendChild(style);
+
+    const canvas = document.getElementById('confetti');
+    const ctx = canvas.getContext('2d');
+    let W=0,H=0,particles=[];
+    function resize(){ W=canvas.width = innerWidth; H=canvas.height = innerHeight; }
+    window.addEventListener('resize', resize); resize();
+
+    function random(min,max){ return Math.random()*(max-min)+min }
+    function makeParticles(){
+      particles = [];
+      for(let i=0;i<150;i++){
+        particles.push({x:W/2 + random(-80,80), y:H/3 + random(-40,40), vx:random(-4,4), vy:random(-8,2), r:random(6,12), ttl:random(60,160), age:0, col:['#ff6b96','#ffcc70','#f28fff','#70f0ff'][Math.floor(Math.random()*4)]});
+      }
+    }
+    function launchConfetti(){ makeParticles(); animateConfetti(); }
+
+    let af;
+    function animateConfetti(){
+      cancelAnimationFrame(af);
+      function frame(){
+        ctx.clearRect(0,0,W,H);
+        for(let p of particles){
+          p.x += p.vx; p.y += p.vy; p.vy += 0.12; p.age++;
+          const a = 1 - p.age/p.ttl;
+          ctx.save(); ctx.globalAlpha = a; ctx.fillStyle = p.col;
+          ctx.fillRect(p.x, p.y, p.r, p.r*0.6);
+          ctx.restore();
+        }
+        particles = particles.filter(p=>p.age<p.ttl);
+        if(particles.length>0) af = requestAnimationFrame(frame);
+      }
+      frame();
+    }
+
+    function heartRain(){
+      for(let i=0;i<15;i++){
+        const h = document.createElement('div');
+        h.className='heart';
+        h.style.left = Math.random()*90+'%';
+        h.style.top = '-10px';
+        h.style.opacity = Math.random()*0.7 + 0.3;
+        h.style.transform = `scale(${Math.random()*1 + 0.5}) rotate(${Math.random()*40-20}deg)`;
+        document.body.appendChild(h);
+        const dur = 5000 + Math.random()*3000;
+        h.animate([{transform: h.style.transform + ' translateY(0px)', opacity: h.style.opacity}, {transform: h.style.transform + ' translateY(100vh)', opacity:0}], {duration:dur, easing:'ease-out'});
+        setTimeout(()=>h.remove(), dur+60);
+      }
+    }
+  </script>
+</body>
+</html>
